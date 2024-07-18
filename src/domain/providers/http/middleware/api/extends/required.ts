@@ -1,9 +1,5 @@
-import { getUserByAccessToken } from '@/domain/actions/users'
-import { getSession } from '@/domain/actions/session'
-import { SessionStatus } from '@/domain/prisma/features/Session/types'
-import { isTokenExpired } from '@/domain/utils/crypto'
+import { verifyAccessToken } from '@/infra/services/auth'
 import { UnauthorizedException } from '../../../exceptions/Unauthorized'
-import { SECRET_KEY } from '@/domain/constants/app'
 
 const BEARER = 'Bearer'
 const MASTER_TOKEN = `${process.env.MASTER_TOKEN}`
@@ -31,16 +27,9 @@ export const validateAccessAuthorization = async (req: Request) => {
     return true
   }
 
-  const user = await getUserByAccessToken(accessToken)
-  if (!user) {
+  const { data } = await verifyAccessToken(accessToken)
+  if (!data || !data.content?.accessToken) {
     err.setMessage('Invalid access token')
-    throw err
-  }
-
-  const session = await getSession({ accessToken })
-  const isExpired = await isTokenExpired(accessToken, SECRET_KEY)
-  if (isExpired || session?.status === SessionStatus.EXPIRED) {
-    err.setMessage('Access token is expired')
     throw err
   }
 }
