@@ -3,9 +3,9 @@
 import type { Prisma } from '@prisma/client'
 import { usePrisma } from '../prisma/hooks'
 
-export const getEmotions = async () => {
+export const getEmotions = async (where?: Prisma.EmotionWhereInput) => {
   const { emotion } = usePrisma()
-  const result = await emotion.findMany()
+  const result = await emotion.findMany({ where })
   return result
 }
 
