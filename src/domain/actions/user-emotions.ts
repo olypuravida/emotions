@@ -19,6 +19,19 @@ export const createUserEmotion = async (data: Prisma.UserEmotionCreateInput) => 
   return result
 }
 
+export const getOrCreateUserEmotions = async (data: Prisma.UserEmotionCreateInput) => {
+  const { userEmotion } = usePrisma()
+  const { userId } = data
+  const where = { userId } as Prisma.UserEmotionWhereUniqueInput
+
+  const result = await userEmotion.upsert({
+    where,
+    create: data,
+    update: {},
+  })
+  return result
+}
+
 export const updateUserEmotion = async (where: Prisma.UserEmotionWhereUniqueInput, data: Prisma.UserEmotionUpdateInput) => {
   const { userEmotion } = usePrisma()
   const result = await userEmotion.update({ where, data })

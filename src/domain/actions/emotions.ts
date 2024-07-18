@@ -15,6 +15,14 @@ export const getEmotion = async (where: Prisma.EmotionWhereUniqueInput) => {
   return result
 }
 
+export const getEmotionsByUser = async (userId: string) => {
+  const { emotion, userEmotion } = usePrisma()
+  const userEmotions = await userEmotion.findMany({ where: { userId } })
+  const emotionIds = userEmotions?.map(ue => ue.emotionId) ?? []
+  const result = await emotion.findMany({ where: { id: { in: emotionIds } } })
+  return result
+}
+
 export const createEmotion = async (data: Prisma.EmotionCreateInput) => {
   const { emotion } = usePrisma()
   const result = await emotion.create({ data })
