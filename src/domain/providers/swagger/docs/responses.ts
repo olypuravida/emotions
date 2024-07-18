@@ -119,8 +119,8 @@ const responses = {
     },
   },
 
-  LoginSuccess: {
-    description: 'Login success response',
+  EmotionsSuccess: {
+    description: 'Get Emotions success response',
     content: {
       'application/json': {
         schema: {
@@ -131,10 +131,13 @@ const responses = {
               properties: {
                 message: {
                   type: 'string',
-                  example: 'Login successfully!',
+                  example: 'Get Emotions successfully!',
                 },
-                user: {
-                  $ref: '#/components/schemas/User',
+                emotions: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Emotion',
+                  },
                 },
               },
             },
@@ -148,8 +151,8 @@ const responses = {
     },
   },
 
-  AdminRegisterSuccess: {
-    description: 'Admin Registe success response',
+  UserEmotionsSuccess: {
+    description: 'Get User Emotions success response',
     content: {
       'application/json': {
         schema: {
@@ -160,10 +163,13 @@ const responses = {
               properties: {
                 message: {
                   type: 'string',
-                  example: 'Admin created successfully!',
+                  example: 'Get Emotions successfully!',
                 },
-                user: {
-                  $ref: '#/components/schemas/User',
+                emotions: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Emotion',
+                  },
                 },
               },
             },
@@ -177,8 +183,8 @@ const responses = {
     },
   },
 
-  CounsellorRegisterSuccess: {
-    description: 'Counsellor register success response',
+  UserEmotionCreatedSuccess: {
+    description: 'User Emotion created success response',
     content: {
       'application/json': {
         schema: {
@@ -189,68 +195,13 @@ const responses = {
               properties: {
                 message: {
                   type: 'string',
-                  example: 'Counsellor created successfully!',
+                  example: 'User Emotion registered!',
                 },
-                user: {
-                  $ref: '#/components/schemas/User',
-                },
-              },
-            },
-
-            status: {
-              $ref: '#/components/schemas/ResponseStatusOK',
-            },
-          },
-        },
-      },
-    },
-  },
-
-  TeacherRegisterSuccess: {
-    description: 'Teacher register success response',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            content: {
-              type: 'object',
-              properties: {
-                message: {
-                  type: 'string',
-                  example: 'Teacher created successfully!',
-                },
-                user: {
-                  $ref: '#/components/schemas/User',
-                },
-              },
-            },
-
-            status: {
-              $ref: '#/components/schemas/ResponseStatusOK',
-            },
-          },
-        },
-      },
-    },
-  },
-
-  StudentRegisterSuccess: {
-    description: 'Student register success response',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            content: {
-              type: 'object',
-              properties: {
-                message: {
-                  type: 'string',
-                  example: 'Student created successfully!',
-                },
-                user: {
-                  $ref: '#/components/schemas/User',
+                emotions: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Emotion',
+                  },
                 },
               },
             },

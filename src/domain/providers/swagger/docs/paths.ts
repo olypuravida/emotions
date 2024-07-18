@@ -1,13 +1,13 @@
 const paths = {
-  '/api/auth/login': {
-    post: {
-      tags: ['Auth'],
-      summary: 'Authenticate user',
-      description: 'Authenticate user with username and password, required basic authorization header.',
-      security: [{ basicAuth: [] }],
+  '/api/emotions': {
+    get: {
+      tags: ['Emotions'],
+      summary: 'Retrieve emotions',
+      description: 'Retrieve all emotions available',
+      security: [{ bearerAuth: [] }],
       responses: {
         200: {
-          $ref: '#/components/responses/LoginSuccess',
+          $ref: '#/components/responses/EmotionsSuccess',
         },
         400: {
           $ref: '#/components/responses/BadRequest',
@@ -25,104 +25,44 @@ const paths = {
     },
   },
 
-  '/api/auth/register/admin': {
+  '/api/emotions/user/{Id}': {
+    get: {
+      tags: ['User Emotions'],
+      summary: 'Retrieve user emotions',
+      description: 'Retrieve all user emotions selected',
+      security: [{ bearerAuth: [] }],
+      responses: {
+        200: {
+          $ref: '#/components/responses/UserEmotionsSuccess',
+        },
+        400: {
+          $ref: '#/components/responses/BadRequest',
+        },
+        401: {
+          $ref: '#/components/responses/Unauthorized',
+        },
+        404: {
+          $ref: '#/components/responses/NotFound',
+        },
+        500: {
+          $ref: '#/components/responses/InternalServerError',
+        },
+      },
+    },
+  },
+
+  '/api/emotions/user/{id}': {
     post: {
-      tags: ['Auth'],
-      summary: 'Register admin user',
-      description: 'Register admin user with data provided, required master bearer authorization header.',
+      tags: ['User Emotions'],
+      summary: 'Register selected user emotion',
+      description: 'Register a selected emotion by user.',
       security: [{ bearerAuth: [] }],
       requestBody: {
-        $ref: '#/components/requestBodies/AdminRequest',
+        $ref: '#/components/requestBodies/UserEmotionRequest',
       },
       responses: {
         200: {
-          $ref: '#/components/responses/AdminRegisterSuccess',
-        },
-        400: {
-          $ref: '#/components/responses/BadRequest',
-        },
-        401: {
-          $ref: '#/components/responses/Unauthorized',
-        },
-        404: {
-          $ref: '#/components/responses/NotFound',
-        },
-        500: {
-          $ref: '#/components/responses/InternalServerError',
-        },
-      },
-    },
-  },
-
-  '/api/auth/register/counsellor': {
-    post: {
-      tags: ['Auth'],
-      summary: 'Register counsellor user',
-      description: 'Register counsellor user with data provided, required master bearer authorization header.',
-      requestBody: {
-        $ref: '#/components/requestBodies/CounsellorRequest',
-      },
-      responses: {
-        200: {
-          $ref: '#/components/responses/CounsellorRegisterSuccess',
-        },
-        400: {
-          $ref: '#/components/responses/BadRequest',
-        },
-        401: {
-          $ref: '#/components/responses/Unauthorized',
-        },
-        404: {
-          $ref: '#/components/responses/NotFound',
-        },
-        500: {
-          $ref: '#/components/responses/InternalServerError',
-        },
-      },
-    },
-  },
-
-  '/api/auth/register/teacher': {
-    post: {
-      tags: ['Auth'],
-      summary: 'Register teacher user',
-      description: 'Register teacher user with data provided, required master bearer authorization header.',
-      security: [{ bearerAuth: [] }],
-      requestBody: {
-        $ref: '#/components/requestBodies/TeacherRequest',
-      },
-      responses: {
-        200: {
-          $ref: '#/components/responses/TeacherRegisterSuccess',
-        },
-        400: {
-          $ref: '#/components/responses/BadRequest',
-        },
-        401: {
-          $ref: '#/components/responses/Unauthorized',
-        },
-        404: {
-          $ref: '#/components/responses/NotFound',
-        },
-        500: {
-          $ref: '#/components/responses/InternalServerError',
-        },
-      },
-    },
-  },
-
-  '/api/auth/register/student': {
-    post: {
-      tags: ['Auth'],
-      summary: 'Register student user',
-      description: 'Register student user with data provided, required master bearer authorization header.',
-      security: [{ bearerAuth: [] }],
-      requestBody: {
-        $ref: '#/components/requestBodies/StudentRequest',
-      },
-      responses: {
-        200: {
-          $ref: '#/components/responses/StudentRegisterSuccess',
+          $ref: '#/components/responses/UserEmotionCreatedSuccess',
         },
         400: {
           $ref: '#/components/responses/BadRequest',

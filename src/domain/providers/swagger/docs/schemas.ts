@@ -1,210 +1,81 @@
 const schemas = {
-  User: {
+  Emotion: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
         format: 'ObjectId',
-        description: 'User ID',
-      },
-      email: {
-        type: 'string',
-        format: 'email',
-        description: 'User email',
-        example: 'KpZtH@example.com',
-        required: true,
-      },
-      username: {
-        type: 'string',
-        description: 'User username',
-        example: 'johnDoe',
-        required: true,
-      },
-      password: {
-        type: 'string',
-        format: 'password',
-        description: 'User password',
-        required: true,
-      },
-      createdAt: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User creation date',
-      },
-      updatedAt: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User last update date',
-      },
-      deletedAt: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User deletion date',
-      },
-      status: {
-        type: 'string',
-        enum: ['ACTIVE', 'INACTIVE', 'DELETED'],
-        description: 'User status',
-      },
-      roles: {
-        type: 'array',
-        items: {
-          $ref: '#/components/schemas/Role',
-        },
-        description: 'User roles',
-      },
-      sessions: {
-        type: 'array',
-        items: {
-          $ref: '#/components/schemas/Session',
-        },
-        description: 'User sessions',
-      },
-      info: {
-        $ref: '#/components/schemas/UserInfo',
-      },
-    },
-  },
-
-  UserInfo: {
-    type: 'object',
-    properties: {
-      id: {
-        type: 'string',
-        format: 'ObjectId',
-        description: 'User ID',
-      },
-      createdAt: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User creation date',
-      },
-      updatedAt: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User last update date',
-      },
-      deletedAt: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User deletion date',
-      },
-      firstName: {
-        type: 'string',
-        description: 'User first name',
-      },
-      lastName: {
-        type: 'string',
-        description: 'User last name',
-      },
-      birthDate: {
-        type: 'string',
-        format: 'date-time',
-        description: 'User birth date',
-      },
-      phone: {
-        type: 'string',
-        description: 'User phone',
-      },
-      address: {
-        type: 'string',
-        description: 'User address',
-      },
-      school: {
-        type: 'string',
-        description: 'User school',
-      },
-      class: {
-        type: 'string',
-        description: 'User class',
-      },
-      docType: {
-        type: 'string',
-        description: 'User document type',
-      },
-      docID: {
-        type: 'string',
-        description: 'User document ID',
-      },
-      avatar: {
-        type: 'string',
-        description: 'User avatar',
-      },
-      gender: {
-        type: 'string',
-        description: 'User gender',
-      },
-    },
-  },
-
-  Role: {
-    type: 'object',
-    properties: {
-      id: {
-        type: 'string',
-        format: 'ObjectId',
-        description: 'Role ID',
+        description: 'Emotion ID',
       },
       name: {
         type: 'string',
-        description: 'Role name',
+        description: 'Emotion name',
+        example: 'Happy',
+        required: true,
+      },
+      description: {
+        type: 'string',
+        description: 'Emotion description',
+      },
+      emotions: {
+        type: 'array',
+        items: {
+          type: 'string',
+        },
+        description: 'User emotions list',
+        example: ['Energetic', 'Paceful'],
+        required: true,
       },
       createdAt: {
         type: 'string',
         format: 'date-time',
-        description: 'Role creation date',
+        description: 'Emotion creation date',
       },
       updatedAt: {
         type: 'string',
         format: 'date-time',
-        description: 'Role last update date',
+        description: 'Emotion last update date',
       },
       deletedAt: {
         type: 'string',
         format: 'date-time',
-        description: 'Role deletion date',
-      },
-      users: {
-        type: 'array',
-        items: {
-          $ref: '#/components/schemas/User',
-        },
-        description: 'Role users',
+        description: 'Emotion deletion date',
       },
     },
   },
 
-  Session: {
+  UserEmotion: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
         format: 'ObjectId',
-        description: 'Session ID',
+        description: 'User Emotion ID',
+      },
+      emotionId: {
+        type: 'string',
+        format: 'ObjectId',
+        description: 'Emotion ID',
+      },
+      userId: {
+        type: 'string',
+        format: 'ObjectId',
+        description: 'User ID',
       },
       createdAt: {
         type: 'string',
         format: 'date-time',
-        description: 'Session creation date',
+        description: 'User Emotion creation date',
       },
       updatedAt: {
         type: 'string',
         format: 'date-time',
-        description: 'Session last update date',
+        description: 'User Emotion last update date',
       },
       deletedAt: {
         type: 'string',
         format: 'date-time',
-        description: 'Session deletion date',
-      },
-      status: {
-        type: 'string',
-        enum: ['ACTIVE', 'INACTIVE', 'DELETED', 'EXPIRED'],
-        description: 'Session status',
-      },
-      user: {
-        $ref: '#/components/schemas/User',
-        description: 'Session user',
+        description: 'User Emotion deletion date',
       },
     },
   },
