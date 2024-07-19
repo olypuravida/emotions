@@ -4,8 +4,8 @@ import { UnauthorizedException } from '../../../exceptions/Unauthorized'
 const BEARER = 'Bearer'
 const MASTER_TOKEN = `${process.env.MASTER_TOKEN}`
 
-export const validateAccessAuthorization = async (req: Request) => {
-  const bearerToken = req.headers.get('authorization')
+export const validateAccessAuthorization = async (req: Request, token?: string) => {
+  const bearerToken = token ?? req.headers.get('Authorization')
   const isBearer = !!bearerToken?.includes(BEARER)
   const accessToken = bearerToken?.replace(BEARER, '').trim()
   const err = new UnauthorizedException()

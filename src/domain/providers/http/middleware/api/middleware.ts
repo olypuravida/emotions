@@ -7,6 +7,7 @@ type Options = {
   only?: MethodType[],
   permit?: string[],
   validator?: any,
+  authToken?: string,
 }
 
 export const apiMiddleware = async (req: Request, params: any, res: Response, opts: Options = {}) => {
@@ -16,6 +17,7 @@ export const apiMiddleware = async (req: Request, params: any, res: Response, op
     validateAccessAuthorization,
   } = await import('./extends')
   const {
+    authToken,
     authorization,
     only,
     permit,
@@ -34,7 +36,7 @@ export const apiMiddleware = async (req: Request, params: any, res: Response, op
 
   // Valid authorization header
   if (authorization) {
-    await validateAccessAuthorization(req)
+    await validateAccessAuthorization(req, authToken)
   }
 
   // Use custom validator

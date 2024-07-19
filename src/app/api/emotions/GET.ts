@@ -6,19 +6,19 @@ import { getEmotions } from '@/domain/actions/emotions'
 
 export async function GET(req: Request) {
   const res = NextResponse
+  const auth = `${req.headers.get('Authorization')}`
 
   try {
     await apiMiddleware(req, {}, res, {
       authorization: true,
       only: ['GET'],
+      authToken: auth,
     })
-
-    const emotions = await getEmotions()
 
     return responseApiSuccess(res, {
       content: {
         message: 'Get emotions successfully!',
-        emotions,
+        emotions: await getEmotions(),
       },
     })
   } catch (exception) {
